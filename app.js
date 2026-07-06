@@ -123,6 +123,16 @@ const closeLocalFileViewerBtn = document.getElementById('closeLocalFileViewerBtn
 
 let currentViewObjectUrl = null;
 
+// Sync Modal DOM
+const syncDataBtn = document.getElementById('syncDataBtn');
+const syncModal = document.getElementById('syncModal');
+const syncModalCloseBtn = document.getElementById('syncModalCloseBtn');
+const syncExportCount = document.getElementById('syncExportCount');
+const syncExportSize = document.getElementById('syncExportSize');
+const exportBackupBtn = document.getElementById('exportBackupBtn');
+const syncFileInput = document.getElementById('syncFileInput');
+const syncImportStatus = document.getElementById('syncImportStatus');
+
 // Fullscreen Viewer DOM
 const fullscreenViewer = document.getElementById('fullscreenViewer');
 const closeFullscreenViewerBtn = document.getElementById('closeFullscreenViewerBtn');
@@ -200,6 +210,15 @@ document.addEventListener('DOMContentLoaded', () => {
   pdfNextPageBtn.addEventListener('click', showNextPdfPage);
   pdfZoomOutBtn.addEventListener('click', zoomOutPdf);
   pdfZoomInBtn.addEventListener('click', zoomInPdf);
+
+  // Sync Modal Events
+  syncDataBtn.addEventListener('click', openSyncModal);
+  syncModalCloseBtn.addEventListener('click', closeSyncModal);
+  syncModal.addEventListener('click', (e) => {
+    if (e.target === syncModal) closeSyncModal();
+  });
+  exportBackupBtn.addEventListener('click', exportDatabase);
+  syncFileInput.addEventListener('change', handleImportBackup);
 });
 
 // ====================================================================
@@ -943,4 +962,181 @@ function downloadFullscreenFile() {
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
+}
+
+// ====================================================================
+// DATABASE SYNCHRONIZATION (BACKUP & RESTORE)
+// ====================================================================
+async function getAllFilesLocal() {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction(storeName, "readonly");
+    const store = transaction.objectStore(storeName);
+    const request = store.getAll();
+    request.onsuccess = (e) => resolve(e.target.result);
+    request.onerror = (e) => reject(e.target.error);
+  });
+}
+
+function blobToBase64(blob) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result.split(',')[1]);
+    reader.onerror = (e) => reject(reader.target.error);
+    reader.readAsDataURL(blob);
+  });
+}
+
+function base64ToBlob(base64, type) {
+  const binStr = atob(base64);
+  const len = binStr.length;
+  const arr = new Uint8Array(len);
+  for (let i = 0; i < len; i++) {
+    arr[i] = binStr.charCodeAt(i);
+  }
+  return new Blob([arr], { type: type });
+}
+
+async function refreshSyncInfo() {
+  try {
+    const files = await getAllFilesLocal();
+    let totalSize = 0;
+    files.forEach(f => {
+      if (f.data) totalSize += f.data.size;
+    });
+    syncExportCount.innerText = `${files.length} tệp`;
+    
+    let sizeText = '0 KB';
+    if (totalSize >= 1024 * 1024) {
+      sizeText = (totalSize / (1024 * 1024)).toFixed(2) + ' MB';
+    } else {
+      sizeText = (totalSize / 1024).toFixed(1) + ' KB';
+    }
+    syncExportSize.innerText = sizeText;
+  } catch (err) {
+    console.error("Lỗi khi tải thông tin đồng bộ:", err);
+  }
+}
+
+async function openSyncModal() {
+  syncModal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  syncImportStatus.style.display = 'none';
+  syncFileInput.value = '';
+  await refreshSyncInfo();
+}
+
+function closeSyncModal() {
+  syncModal.style.display = 'none';
+  // If detailModal is open, keep body scroll locked, else unlock
+  if (detailModal && detailModal.style.display === 'flex') {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = '';
+  }
+}
+
+async function exportDatabase() {
+  const originalText = exportBackupBtn.innerHTML;
+  exportBackupBtn.disabled = true;
+  exportBackupBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang chuẩn bị tệp sao lưu...';
+  
+  try {
+    const files = await getAllFilesLocal();
+    if (files.length === 0) {
+      alert("Không có tài liệu nào để sao lưu trên thiết bị này.");
+      exportBackupBtn.disabled = false;
+      exportBackupBtn.innerHTML = originalText;
+      return;
+    }
+    
+    const backupData = [];
+    for (const f of files) {
+      const base64Data = await blobToBase64(f.data);
+      backupData.push({
+        programId: f.programId,
+        name: f.name,
+        type: f.type,
+        base64: base64Data
+      });
+    }
+    
+    const jsonString = JSON.stringify(backupData);
+    const blob = new Blob([jsonString], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    
+    const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `bachmai_database_backup_${dateStr}.bachmai`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  } catch (err) {
+    console.error("Lỗi xuất database:", err);
+    alert("Có lỗi xảy ra trong quá trình xuất sao lưu.");
+  } finally {
+    exportBackupBtn.disabled = false;
+    exportBackupBtn.innerHTML = originalText;
+  }
+}
+
+async function handleImportBackup(e) {
+  if (!e.target.files.length) return;
+  const file = e.target.files[0];
+  
+  syncImportStatus.style.display = 'block';
+  syncImportStatus.className = 'sync-working-status';
+  syncImportStatus.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang nhập và đồng bộ dữ liệu...';
+  
+  const reader = new FileReader();
+  reader.onload = async function(evt) {
+    try {
+      const backupData = JSON.parse(evt.target.result);
+      if (!Array.isArray(backupData)) {
+        throw new Error("Định dạng tệp sao lưu không hợp lệ.");
+      }
+      
+      let importedCount = 0;
+      for (const item of backupData) {
+        if (!item.programId || !item.name || !item.type || !item.base64) {
+          continue; // skip malformed records
+        }
+        
+        const blob = base64ToBlob(item.base64, item.type);
+        // Add file metadata properties
+        blob.name = item.name;
+        blob.type = item.type;
+        
+        // Save to IndexedDB
+        await saveFileLocal(item.programId, blob);
+        
+        // Update in-memory trainingPrograms state
+        const idx = trainingPrograms.findIndex(p => p.id === parseInt(item.programId));
+        if (idx !== -1) {
+          trainingPrograms[idx].doc_status = 'Có';
+        }
+        importedCount++;
+      }
+      
+      // Update UI
+      updateStats();
+      applyFilters();
+      await refreshSyncInfo();
+      
+      syncImportStatus.className = 'sync-success-status';
+      syncImportStatus.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đồng bộ thành công! Đã nhập ${importedCount} tài liệu vào trình duyệt này.`;
+      
+      // If we are currently looking at a program details modal, refresh it
+      if (selectedProgram) {
+        await refreshLocalFileStatus();
+      }
+    } catch (err) {
+      console.error("Lỗi nhập dữ liệu:", err);
+      syncImportStatus.className = 'sync-error-status';
+      syncImportStatus.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Nhập dữ liệu thất bại. Vui lòng đảm bảo tệp tin đúng định dạng `.bachmai`.';
+    }
+  };
+  reader.readAsText(file);
 }

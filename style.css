@@ -1544,4 +1544,26 @@ header::before {
   }
 }
 
+/* ====================================================================
+   DATABASE SYNCHRONIZATION STATUS STYLES
+   ==================================================================== */
+.sync-success-status {
+  background: var(--success-light) !important;
+  color: var(--success) !important;
+  border: 1px solid var(--success);
+}
+
+.sync-error-status {
+  background: var(--danger-light) !important;
+  color: var(--danger) !important;
+  border: 1px solid var(--danger);
+}
+
+.sync-working-status {
+  background: var(--primary-light) !important;
+  color: var(--primary) !important;
+  border: 1px dashed var(--primary);
+}
+
+
 
