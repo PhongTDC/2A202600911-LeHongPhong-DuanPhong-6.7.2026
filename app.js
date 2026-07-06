@@ -116,6 +116,12 @@ const localFileStatus = document.getElementById('localFileStatus');
 const localFileName = document.getElementById('localFileName');
 const localFileDownloadBtn = document.getElementById('localFileDownloadBtn');
 const localFileDeleteBtn = document.getElementById('localFileDeleteBtn');
+const localFileViewBtn = document.getElementById('localFileViewBtn');
+const localFileViewerContainer = document.getElementById('localFileViewerContainer');
+const localFileViewerContent = document.getElementById('localFileViewerContent');
+const closeLocalFileViewerBtn = document.getElementById('closeLocalFileViewerBtn');
+
+let currentViewObjectUrl = null;
 
 // ====================================================================
 // INITIALIZATION
@@ -148,6 +154,15 @@ document.addEventListener('DOMContentLoaded', () => {
   localFileInput.addEventListener('change', handleLocalFileUpload);
   localFileDownloadBtn.addEventListener('click', downloadLocalFile);
   localFileDeleteBtn.addEventListener('click', deleteLocalFile);
+  localFileViewBtn.addEventListener('click', viewLocalFile);
+  closeLocalFileViewerBtn.addEventListener('click', () => {
+    localFileViewerContainer.style.display = 'none';
+    localFileViewerContent.innerHTML = '';
+    if (currentViewObjectUrl) {
+      URL.revokeObjectURL(currentViewObjectUrl);
+      currentViewObjectUrl = null;
+    }
+  });
 });
 
 // ====================================================================
@@ -470,6 +485,16 @@ function closeModal() {
   detailModal.style.display = 'none';
   document.body.style.overflow = ''; // Unlock body scroll
   selectedProgram = null;
+  
+  // Hide viewer container and clear contents
+  if (localFileViewerContainer) {
+    localFileViewerContainer.style.display = 'none';
+    localFileViewerContent.innerHTML = '';
+  }
+  if (currentViewObjectUrl) {
+    URL.revokeObjectURL(currentViewObjectUrl);
+    currentViewObjectUrl = null;
+  }
 }
 
 // ====================================================================
@@ -485,6 +510,14 @@ async function refreshLocalFileStatus() {
       localFileStatus.style.display = 'flex';
     } else {
       localFileStatus.style.display = 'none';
+      if (localFileViewerContainer) {
+        localFileViewerContainer.style.display = 'none';
+        localFileViewerContent.innerHTML = '';
+      }
+      if (currentViewObjectUrl) {
+        URL.revokeObjectURL(currentViewObjectUrl);
+        currentViewObjectUrl = null;
+      }
     }
     localFileInput.value = ''; // Reset input element
   } catch (e) {
@@ -563,6 +596,16 @@ async function deleteLocalFile() {
   try {
     await deleteFileLocal(selectedProgram.id);
     
+    // Hide viewer container
+    if (localFileViewerContainer) {
+      localFileViewerContainer.style.display = 'none';
+      localFileViewerContent.innerHTML = '';
+    }
+    if (currentViewObjectUrl) {
+      URL.revokeObjectURL(currentViewObjectUrl);
+      currentViewObjectUrl = null;
+    }
+    
     // Refresh modal UI
     await refreshLocalFileStatus();
     alert("Đã xóa tài liệu cục bộ thành công!");
@@ -570,6 +613,61 @@ async function deleteLocalFile() {
     console.error(err);
     alert("Xóa tệp thất bại.");
   }
+}
+
+async function viewLocalFile() {
+  if (!selectedProgram) return;
+  
+  try {
+    const fileRecord = await getFileLocal(selectedProgram.id);
+    if (!fileRecord) {
+      alert("Không tìm thấy tệp cục bộ.");
+      return;
+    }
+    
+    // Clear previous content
+    localFileViewerContent.innerHTML = '';
+    if (currentViewObjectUrl) {
+      URL.revokeObjectURL(currentViewObjectUrl);
+      currentViewObjectUrl = null;
+    }
+    
+    const fileName = fileRecord.name.toLowerCase();
+    
+    if (fileName.endsWith('.pdf')) {
+      currentViewObjectUrl = URL.createObjectURL(fileRecord.data);
+      const embedUrl = currentViewObjectUrl + '#toolbar=0&navpanes=0&scrollbar=0';
+      localFileViewerContent.innerHTML = `<iframe src="${embedUrl}" width="100%" height="100%" style="border: none;"></iframe>`;
+    } else if (fileName.endsWith('.png') || fileName.endsWith('.jpg') || fileName.endsWith('.jpeg') || fileName.endsWith('.gif') || fileName.endsWith('.webp')) {
+      currentViewObjectUrl = URL.createObjectURL(fileRecord.data);
+      localFileViewerContent.innerHTML = `<img src="${currentViewObjectUrl}" style="max-width: 100%; max-height: 100%; object-fit: contain;" />`;
+    } else if (fileName.endsWith('.txt')) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        localFileViewerContent.innerHTML = `<pre style="width: 100%; height: 100%; padding: 1rem; overflow: auto; background: var(--bg-secondary); color: var(--text-primary); margin: 0; text-align: left; font-family: monospace; font-size: 0.9rem; white-space: pre-wrap; word-break: break-all;">${escapeHTML(e.target.result)}</pre>`;
+      };
+      reader.readAsText(fileRecord.data);
+    } else {
+      localFileViewerContent.innerHTML = `<div style="padding: 2rem; color: #ffffff; text-align: center;">Định dạng file "${fileRecord.name}" chưa hỗ trợ xem trực tuyến trực tiếp. Vui lòng sử dụng nút Tải về để xem.</div>`;
+    }
+    
+    localFileViewerContainer.style.display = 'flex';
+  } catch (err) {
+    console.error(err);
+    alert("Không thể hiển thị tệp.");
+  }
+}
+
+function escapeHTML(str) {
+  return str.replace(/[&<>'"]/g, 
+    tag => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      "'": '&#39;',
+      '"': '&quot;'
+    }[tag] || tag)
+  );
 }
 
 // ====================================================================
