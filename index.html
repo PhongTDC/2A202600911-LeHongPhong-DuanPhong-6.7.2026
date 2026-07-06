@@ -317,7 +317,52 @@
     </div>
   </div>
 
+  <!-- Fullscreen Document Viewer for Mobile / Desktop -->
+  <div id="fullscreenViewer" class="fullscreen-viewer-overlay">
+    <div class="viewer-header">
+      <button id="closeFullscreenViewerBtn" class="viewer-back-btn" aria-label="Quay lại">
+        <i class="fa-solid fa-arrow-left"></i> <span>Quay lại</span>
+      </button>
+      <div class="viewer-title-section">
+        <span id="fullscreenViewerTitle" class="viewer-doc-title">Tên tài liệu</span>
+      </div>
+      <div class="viewer-actions">
+        <button id="fullscreenOpenTabBtn" class="viewer-btn" title="Mở trong tab mới">
+          <i class="fa-solid fa-up-right-from-square"></i>
+        </button>
+        <button id="fullscreenDownloadBtn" class="viewer-btn" title="Tải xuống tệp">
+          <i class="fa-solid fa-download"></i>
+        </button>
+      </div>
+    </div>
+    <div id="fullscreenViewerContent" class="viewer-body-content">
+      <!-- Dynamic content (canvas, img, pre) will be injected here -->
+    </div>
+    <!-- PDF Paging and Zoom Controls -->
+    <div id="pdfControlsBar" class="pdf-controls-bar">
+      <button id="pdfPrevPageBtn" class="pdf-control-btn" title="Trang trước">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <span class="pdf-page-indicator">
+        Trang <span id="pdfCurrentPageNum">1</span> / <span id="pdfTotalPages">1</span>
+      </span>
+      <button id="pdfNextPageBtn" class="pdf-control-btn" title="Trang sau">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+      <div class="pdf-zoom-controls">
+        <button id="pdfZoomOutBtn" class="pdf-control-btn" title="Thu nhỏ">
+          <i class="fa-solid fa-minus"></i>
+        </button>
+        <span id="pdfZoomPercent" class="pdf-zoom-text">100%</span>
+        <button id="pdfZoomInBtn" class="pdf-control-btn" title="Phóng to">
+          <i class="fa-solid fa-plus"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
   <script src="data.js"></script>
   <script src="app.js"></script>
   <script src="ai-chatbot.js"></script>
