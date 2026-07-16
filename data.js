@@ -11,8 +11,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Không phải của BVBM ban hành",
     "review_note": null,
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/1. HSCC_QĐ CTCK cơ bản 9th.pdf",
+    "local_file_path": "documents/1. HSCC_QĐ CTCK cơ bản 9th.pdf"
   },
   {
     "id": 2,
@@ -26,8 +26,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Không phải của BVBM ban hành",
     "review_note": null,
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/2. Nhi khoa_QĐ CTĐTCK cơ bản 9th.pdf",
+    "local_file_path": "documents/2. Nhi khoa_QĐ CTĐTCK cơ bản 9th.pdf"
   },
   {
     "id": 3,
@@ -41,8 +41,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Của BVBM ban hành",
     "review_note": null,
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/3. TMH_QĐ CTCK cơ bản 9th.pdf",
+    "local_file_path": "documents/3. TMH_QĐ CTCK cơ bản 9th.pdf"
   },
   {
     "id": 4,
@@ -53,11 +53,11 @@ const trainingPrograms = [
     "duration": "9 tháng",
     "level": "Cơ bản",
     "note": null,
-    "doc_status": "Thiếu",
+    "doc_status": "Có",
     "doc_source": "Thiếu",
     "review_note": "Cần sửa lại tên CT trong danh mục hoặc sửa lại CT",
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/4. Ung thư_QĐ CTĐTCK cơ bản 9th.pdf",
+    "local_file_path": "documents/4. Ung thư_QĐ CTĐTCK cơ bản 9th.pdf"
   },
   {
     "id": 5,
@@ -71,8 +71,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Không phải của BVBM ban hành",
     "review_note": null,
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/5. Sản phụ khoa _QĐ CTCK cơ bản 9th.pdf",
+    "local_file_path": "documents/5. Sản phụ khoa _QĐ CTCK cơ bản 9th.pdf"
   },
   {
     "id": 6,
@@ -86,8 +86,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Của BVBM ban hành",
     "review_note": null,
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/6. Phục hồi chức năng_QĐ CKCB cơ bản 9th.pdf",
+    "local_file_path": "documents/6. Phục hồi chức năng_QĐ CKCB cơ bản 9th.pdf"
   },
   {
     "id": 7,
@@ -101,8 +101,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Không phải của BVBM ban hành",
     "review_note": null,
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/7. Nội khoa_QĐ CKCB cơ bản 9th.pdf",
+    "local_file_path": "documents/7. Nội khoa_QĐ CKCB cơ bản 9th.pdf"
   },
   {
     "id": 8,
@@ -116,8 +116,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Của BVBM ban hành",
     "review_note": "Nếu ban hành lại CT cần sửa lại số tiết",
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/8. Ngoại khoa cơ bản.pdf",
+    "local_file_path": "documents/8. Ngoại khoa cơ bản.pdf"
   },
   {
     "id": 9,
@@ -131,8 +131,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Không phải của BVBM ban hành",
     "review_note": null,
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/9. Phẫu thuật THTM_QĐ CKCB.pdf",
+    "local_file_path": "documents/9. Phẫu thuật THTM_QĐ CKCB.pdf"
   },
   {
     "id": 10,
@@ -146,8 +146,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Không phải của BVBM ban hành",
     "review_note": "Cần sửa lại tên CT trong danh mục hoặc sửa lại CT",
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/10.  GMHS_QĐ CKCB 9th.pdf",
+    "local_file_path": "documents/10.  GMHS_QĐ CKCB 9th.pdf"
   },
   {
     "id": 11,
@@ -161,8 +161,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Không phải của BVBM ban hành",
     "review_note": null,
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/11. MDDULS_QĐ CKCB 9th.pdf",
+    "local_file_path": "documents/11. MDDULS_QĐ CKCB 9th.pdf"
   },
   {
     "id": 12,
@@ -176,8 +176,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Của BVBM và nguồn khác",
     "review_note": null,
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/12. Bệnh nhiệt đới_QĐ CKCB.pdf",
+    "local_file_path": "documents/12. Bệnh nhiệt đới_QĐ CKCB.pdf"
   },
   {
     "id": 13,
@@ -191,8 +191,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Không phải của BVBM ban hành",
     "review_note": null,
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/13. Da liễu_QĐ CKCB.pdf",
+    "local_file_path": "documents/13. Da liễu_QĐ CKCB.pdf"
   },
   {
     "id": 14,
@@ -203,11 +203,11 @@ const trainingPrograms = [
     "duration": "9 tháng",
     "level": "Cơ bản",
     "note": null,
-    "doc_status": "Thiếu",
+    "doc_status": "Có",
     "doc_source": "Thiếu",
     "review_note": null,
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/14. Huyết học và Truyền máu_QĐ CKCB.pdf",
+    "local_file_path": "documents/14. Huyết học và Truyền máu_QĐ CKCB.pdf"
   },
   {
     "id": 15,
@@ -221,8 +221,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Của BVBM ban hành",
     "review_note": null,
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/15. Tâm thần cơ bản.pdf",
+    "local_file_path": "documents/15. Tâm thần cơ bản.pdf"
   },
   {
     "id": 16,
@@ -236,8 +236,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Không phải của BVBM ban hành",
     "review_note": null,
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/16. Chuyên khoa cơ bản Chẩn đoán hình ảnh.pdf",
+    "local_file_path": "documents/16. Chuyên khoa cơ bản Chẩn đoán hình ảnh.pdf"
   },
   {
     "id": 17,
@@ -251,8 +251,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Không phải của BVBM ban hành",
     "review_note": null,
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/17. GPB_TBH_QĐ CKCB 10th.pdf",
+    "local_file_path": "documents/17. GPB_TBH_QĐ CKCB 10th.pdf"
   },
   {
     "id": 18,
@@ -266,8 +266,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Thiếu",
     "review_note": "Cần sửa lại tên CT trong danh mục hoặc sửa lại CT, trong CT dư chữ \"chuyên ngành\"",
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/18.(đã ký) ĐTNCYD-QĐ-Quyết định ban hành chương trình chuyên khoa cơ bản YHHN và thực hành chuyên ngành YHHN.pdf",
+    "local_file_path": "documents/18.(đã ký) ĐTNCYD-QĐ-Quyết định ban hành chương trình chuyên khoa cơ bản YHHN và thực hành chuyên ngành YHHN.pdf"
   },
   {
     "id": 19,
@@ -281,8 +281,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Của BVBM ban hành",
     "review_note": null,
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/19. Tâm lý lâm sàng cơ bản.pdf",
+    "local_file_path": "documents/19. Tâm lý lâm sàng cơ bản.pdf"
   },
   {
     "id": 20,
@@ -296,8 +296,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Không phải của BVBM ban hành",
     "review_note": "Cần sửa lại tên CT trong danh mục hoặc sửa lại CT, trong CT dư chữ \"chuyên ngành\"",
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/20. Nhãn khoa_QĐ CKCB cơ bản 9th.pdf",
+    "local_file_path": "documents/20. Nhãn khoa_QĐ CKCB cơ bản 9th.pdf"
   },
   {
     "id": 21,
@@ -4373,11 +4373,11 @@ const trainingPrograms = [
     "duration": "3 tháng",
     "level": "Chuyên sâu",
     "note": null,
-    "doc_status": "Thiếu",
+    "doc_status": "Có",
     "doc_source": "Thiếu",
     "review_note": null,
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/2. pt vi phẫu phình động mạch não giữa.pdf",
+    "local_file_path": "documents/2. pt vi phẫu phình động mạch não giữa.pdf"
   },
   {
     "id": 293,
