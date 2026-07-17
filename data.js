@@ -11,8 +11,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Không phải của BVBM ban hành",
     "review_note": null,
-    "document_url": "documents/1. HSCC_QĐ CTCK cơ bản 9th.pdf",
-    "local_file_path": "documents/1. HSCC_QĐ CTCK cơ bản 9th.pdf"
+    "document_url": "documents/1. Chuyên khoa cơ bản Hồi sức cấp cứu.pdf",
+    "local_file_path": "documents/1. Chuyên khoa cơ bản Hồi sức cấp cứu.pdf"
   },
   {
     "id": 2,
@@ -26,8 +26,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Không phải của BVBM ban hành",
     "review_note": null,
-    "document_url": "documents/2. Nhi khoa_QĐ CTĐTCK cơ bản 9th.pdf",
-    "local_file_path": "documents/2. Nhi khoa_QĐ CTĐTCK cơ bản 9th.pdf"
+    "document_url": "documents/2. Chuyên khoa cơ bản Nhi.pdf",
+    "local_file_path": "documents/2. Chuyên khoa cơ bản Nhi.pdf"
   },
   {
     "id": 3,
@@ -41,8 +41,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Của BVBM ban hành",
     "review_note": null,
-    "document_url": "documents/3. TMH_QĐ CTCK cơ bản 9th.pdf",
-    "local_file_path": "documents/3. TMH_QĐ CTCK cơ bản 9th.pdf"
+    "document_url": "documents/3. Chuyên khoa cơ bản Tai mũi họng.pdf",
+    "local_file_path": "documents/3. Chuyên khoa cơ bản Tai mũi họng.pdf"
   },
   {
     "id": 4,
@@ -56,8 +56,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Thiếu",
     "review_note": "Cần sửa lại tên CT trong danh mục hoặc sửa lại CT",
-    "document_url": "documents/4. Ung thư_QĐ CTĐTCK cơ bản 9th.pdf",
-    "local_file_path": "documents/4. Ung thư_QĐ CTĐTCK cơ bản 9th.pdf"
+    "document_url": "documents/4. Chuyên khoa cơ bản Ung thư.pdf",
+    "local_file_path": "documents/4. Chuyên khoa cơ bản Ung thư.pdf"
   },
   {
     "id": 5,
@@ -71,8 +71,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Không phải của BVBM ban hành",
     "review_note": null,
-    "document_url": "documents/5. Sản phụ khoa _QĐ CTCK cơ bản 9th.pdf",
-    "local_file_path": "documents/5. Sản phụ khoa _QĐ CTCK cơ bản 9th.pdf"
+    "document_url": "documents/5. Chuyên khoa cơ bản sản phụ khoa.pdf",
+    "local_file_path": "documents/5. Chuyên khoa cơ bản sản phụ khoa.pdf"
   },
   {
     "id": 6,
@@ -86,8 +86,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Của BVBM ban hành",
     "review_note": null,
-    "document_url": "documents/6. Phục hồi chức năng_QĐ CKCB cơ bản 9th.pdf",
-    "local_file_path": "documents/6. Phục hồi chức năng_QĐ CKCB cơ bản 9th.pdf"
+    "document_url": "documents/6. Chuyên khoa cơ bản Phục hồi chức năng.pdf",
+    "local_file_path": "documents/6. Chuyên khoa cơ bản Phục hồi chức năng.pdf"
   },
   {
     "id": 7,
@@ -101,8 +101,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Không phải của BVBM ban hành",
     "review_note": null,
-    "document_url": "documents/7. Nội khoa_QĐ CKCB cơ bản 9th.pdf",
-    "local_file_path": "documents/7. Nội khoa_QĐ CKCB cơ bản 9th.pdf"
+    "document_url": "documents/7. Chuyên khoa cơ bản nội khoa.pdf",
+    "local_file_path": "documents/7. Chuyên khoa cơ bản nội khoa.pdf"
   },
   {
     "id": 8,
@@ -116,8 +116,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Của BVBM ban hành",
     "review_note": "Nếu ban hành lại CT cần sửa lại số tiết",
-    "document_url": "documents/8. Ngoại khoa cơ bản.pdf",
-    "local_file_path": "documents/8. Ngoại khoa cơ bản.pdf"
+    "document_url": "documents/8. Chuyên khoa cơ bản ngoại khoa.pdf",
+    "local_file_path": "documents/8. Chuyên khoa cơ bản ngoại khoa.pdf"
   },
   {
     "id": 9,
@@ -131,8 +131,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Không phải của BVBM ban hành",
     "review_note": null,
-    "document_url": "documents/9. Phẫu thuật THTM_QĐ CKCB.pdf",
-    "local_file_path": "documents/9. Phẫu thuật THTM_QĐ CKCB.pdf"
+    "document_url": "documents/9. Chuyên khoa cơ bản Phẫu thuật tạo hình thẩm mỹ.pdf",
+    "local_file_path": "documents/9. Chuyên khoa cơ bản Phẫu thuật tạo hình thẩm mỹ.pdf"
   },
   {
     "id": 10,
@@ -146,8 +146,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Không phải của BVBM ban hành",
     "review_note": "Cần sửa lại tên CT trong danh mục hoặc sửa lại CT",
-    "document_url": "documents/10.  GMHS_QĐ CKCB 9th.pdf",
-    "local_file_path": "documents/10.  GMHS_QĐ CKCB 9th.pdf"
+    "document_url": "documents/10. Chuyên khoa cơ bản Gây mê hồi sức.pdf",
+    "local_file_path": "documents/10. Chuyên khoa cơ bản Gây mê hồi sức.pdf"
   },
   {
     "id": 11,
@@ -161,8 +161,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Không phải của BVBM ban hành",
     "review_note": null,
-    "document_url": "documents/11. MDDULS_QĐ CKCB 9th.pdf",
-    "local_file_path": "documents/11. MDDULS_QĐ CKCB 9th.pdf"
+    "document_url": "documents/11. Chuyên khoa cơ bản Dị ứng Miễn dịch lâm sàng.pdf",
+    "local_file_path": "documents/11. Chuyên khoa cơ bản Dị ứng Miễn dịch lâm sàng.pdf"
   },
   {
     "id": 12,
@@ -176,8 +176,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Của BVBM và nguồn khác",
     "review_note": null,
-    "document_url": "documents/12. Bệnh nhiệt đới_QĐ CKCB.pdf",
-    "local_file_path": "documents/12. Bệnh nhiệt đới_QĐ CKCB.pdf"
+    "document_url": "documents/12. Chuyên khoa cơ bản Bệnh nhiệt đới.pdf",
+    "local_file_path": "documents/12. Chuyên khoa cơ bản Bệnh nhiệt đới.pdf"
   },
   {
     "id": 13,
@@ -191,8 +191,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Không phải của BVBM ban hành",
     "review_note": null,
-    "document_url": "documents/13. Da liễu_QĐ CKCB.pdf",
-    "local_file_path": "documents/13. Da liễu_QĐ CKCB.pdf"
+    "document_url": "documents/13. Chuyên khoa cơ bản Da liễu.pdf",
+    "local_file_path": "documents/13. Chuyên khoa cơ bản Da liễu.pdf"
   },
   {
     "id": 14,
@@ -206,8 +206,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Thiếu",
     "review_note": null,
-    "document_url": "documents/14. Huyết học và Truyền máu_QĐ CKCB.pdf",
-    "local_file_path": "documents/14. Huyết học và Truyền máu_QĐ CKCB.pdf"
+    "document_url": "documents/14. Chuyên khoa cơ bản Huyết học truyền máu.pdf",
+    "local_file_path": "documents/14. Chuyên khoa cơ bản Huyết học truyền máu.pdf"
   },
   {
     "id": 15,
@@ -221,8 +221,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Của BVBM ban hành",
     "review_note": null,
-    "document_url": "documents/15. Tâm thần cơ bản.pdf",
-    "local_file_path": "documents/15. Tâm thần cơ bản.pdf"
+    "document_url": "documents/15. Chuyên khoa cơ bản Tâm thần.pdf",
+    "local_file_path": "documents/15. Chuyên khoa cơ bản Tâm thần.pdf"
   },
   {
     "id": 16,
@@ -251,8 +251,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Không phải của BVBM ban hành",
     "review_note": null,
-    "document_url": "documents/17. GPB_TBH_QĐ CKCB 10th.pdf",
-    "local_file_path": "documents/17. GPB_TBH_QĐ CKCB 10th.pdf"
+    "document_url": "documents/17. Chuyên khoa cơ bản Giải phẫu bệnh - Tế bào học.pdf",
+    "local_file_path": "documents/17. Chuyên khoa cơ bản Giải phẫu bệnh - Tế bào học.pdf"
   },
   {
     "id": 18,
@@ -266,8 +266,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Thiếu",
     "review_note": "Cần sửa lại tên CT trong danh mục hoặc sửa lại CT, trong CT dư chữ \"chuyên ngành\"",
-    "document_url": "documents/18.(đã ký) ĐTNCYD-QĐ-Quyết định ban hành chương trình chuyên khoa cơ bản YHHN và thực hành chuyên ngành YHHN.pdf",
-    "local_file_path": "documents/18.(đã ký) ĐTNCYD-QĐ-Quyết định ban hành chương trình chuyên khoa cơ bản YHHN và thực hành chuyên ngành YHHN.pdf"
+    "document_url": "documents/18. Chuyên khoa cơ bản chuyên ngành Y học hạt nhân.pdf",
+    "local_file_path": "documents/18. Chuyên khoa cơ bản chuyên ngành Y học hạt nhân.pdf"
   },
   {
     "id": 19,
@@ -281,8 +281,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Của BVBM ban hành",
     "review_note": null,
-    "document_url": "documents/19. Tâm lý lâm sàng cơ bản.pdf",
-    "local_file_path": "documents/19. Tâm lý lâm sàng cơ bản.pdf"
+    "document_url": "documents/19. Chuyên khoa cơ bản Tâm lý lâm sàng.pdf",
+    "local_file_path": "documents/19. Chuyên khoa cơ bản Tâm lý lâm sàng.pdf"
   },
   {
     "id": 20,
@@ -296,8 +296,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Không phải của BVBM ban hành",
     "review_note": "Cần sửa lại tên CT trong danh mục hoặc sửa lại CT, trong CT dư chữ \"chuyên ngành\"",
-    "document_url": "documents/20. Nhãn khoa_QĐ CKCB cơ bản 9th.pdf",
-    "local_file_path": "documents/20. Nhãn khoa_QĐ CKCB cơ bản 9th.pdf"
+    "document_url": "documents/20. Chuyên khoa cơ bản Nhãn khoa.pdf",
+    "local_file_path": "documents/20. Chuyên khoa cơ bản Nhãn khoa.pdf"
   },
   {
     "id": 21,
@@ -311,8 +311,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Không phải của BVBM ban hành",
     "review_note": null,
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/1. Thực hành khám bệnh, chữa bệnh đối với chức danh Bác sỹ y khoa.pdf",
+    "local_file_path": "documents/1. Thực hành khám bệnh, chữa bệnh đối với chức danh Bác sỹ y khoa.pdf"
   },
   {
     "id": 22,
@@ -326,8 +326,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Của BVBM và nguồn khác",
     "review_note": null,
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/2. Thực hành khám bệnh, chữa bệnh đối với chức danh Bác sĩ Y học cổ truyền.pdf",
+    "local_file_path": "documents/2. Thực hành khám bệnh, chữa bệnh đối với chức danh Bác sĩ Y học cổ truyền.pdf"
   },
   {
     "id": 23,
@@ -341,8 +341,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Không phải của BVBM ban hành",
     "review_note": null,
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/3. Thực hành khám bệnh, chữa bệnh đối với chức danh Bác sĩ Răng hàm mặt.pdf",
+    "local_file_path": "documents/3. Thực hành khám bệnh, chữa bệnh đối với chức danh Bác sĩ Răng hàm mặt.pdf"
   },
   {
     "id": 24,
@@ -371,8 +371,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Không phải của BVBM ban hành",
     "review_note": null,
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/5. Thực hành khám bệnh, chữa bệnh đối với chức danh Bác sĩ Gây mê hồi sức.pdf",
+    "local_file_path": "documents/5. Thực hành khám bệnh, chữa bệnh đối với chức danh Bác sĩ Gây mê hồi sức.pdf"
   },
   {
     "id": 26,
@@ -446,8 +446,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Không phải của BVBM ban hành",
     "review_note": "Linh chưa gửi CT",
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/10. Thực hành khám bệnh, chữa bệnh đối với chức danh Bác sĩ sản phụ khoa.pdf",
+    "local_file_path": "documents/10. Thực hành khám bệnh, chữa bệnh đối với chức danh Bác sĩ sản phụ khoa.pdf"
   },
   {
     "id": 31,
@@ -461,8 +461,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Của BVBM ban hành",
     "review_note": null,
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/11. Thực hành khám bệnh, chữa bệnh đối với chức danh Bác sĩ Y học hạt nhân.pdf",
+    "local_file_path": "documents/11. Thực hành khám bệnh, chữa bệnh đối với chức danh Bác sĩ Y học hạt nhân.pdf"
   },
   {
     "id": 32,
@@ -476,8 +476,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Của BVBM ban hành",
     "review_note": null,
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/12. Thực hành khám bệnh, chữa bệnh đối với chức danh Bác sĩ Ung thư.pdf",
+    "local_file_path": "documents/12. Thực hành khám bệnh, chữa bệnh đối với chức danh Bác sĩ Ung thư.pdf"
   },
   {
     "id": 33,
@@ -491,8 +491,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Của BVBM ban hành",
     "review_note": null,
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/13. Thực hành khám bệnh, chữa bệnh đối với chức danh Bác sĩ Phục hồi chức năng.pdf",
+    "local_file_path": "documents/13. Thực hành khám bệnh, chữa bệnh đối với chức danh Bác sĩ Phục hồi chức năng.pdf"
   },
   {
     "id": 34,
@@ -521,8 +521,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Của BVBM ban hành",
     "review_note": null,
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/15. Thực hành khám bệnh, chữa bệnh đối với chức danh Bác sĩ Mắt.pdf",
+    "local_file_path": "documents/15. Thực hành khám bệnh, chữa bệnh đối với chức danh Bác sĩ Mắt.pdf"
   },
   {
     "id": 36,
@@ -656,8 +656,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Không phải của BVBM ban hành",
     "review_note": null,
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/24. Hộ sinh (đã ký) ĐTNCYD-QĐ-Quyết định ban hành 05 chương trình chuyên ngành Phụ sản.pdf",
+    "local_file_path": "documents/24. Hộ sinh (đã ký) ĐTNCYD-QĐ-Quyết định ban hành 05 chương trình chuyên ngành Phụ sản.pdf"
   },
   {
     "id": 45,
@@ -671,8 +671,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Không phải của BVBM ban hành",
     "review_note": null,
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/25. Thực hành khám bệnh, chữa bệnh đối với chức danh Điều dưỡng.pdf",
+    "local_file_path": "documents/25. Thực hành khám bệnh, chữa bệnh đối với chức danh Điều dưỡng.pdf"
   },
   {
     "id": 46,
@@ -686,8 +686,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Của BVBM ban hành",
     "review_note": null,
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/26. Thực hành hành nghề có chức danh chuyên môn Dinh dưỡng lâm sàng.pdf",
+    "local_file_path": "documents/26. Thực hành hành nghề có chức danh chuyên môn Dinh dưỡng lâm sàng.pdf"
   },
   {
     "id": 47,
@@ -701,8 +701,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Không phải của BVBM ban hành",
     "review_note": null,
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/27. Thực hành khám bệnh, chữa bệnh đối với chức danh kỹ thuật y có phạm vi hành nghề hình ảnh y học.pdf",
+    "local_file_path": "documents/27. Thực hành khám bệnh, chữa bệnh đối với chức danh kỹ thuật y có phạm vi hành nghề hình ảnh y học.pdf"
   },
   {
     "id": 48,
@@ -716,8 +716,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Không phải của BVBM ban hành",
     "review_note": null,
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/28. Thực hành khám bệnh, chữa bệnh đối với chức danh kỹ thuật y có phạm vi hành nghề xét nghiệm y.pdf",
+    "local_file_path": "documents/28. Thực hành khám bệnh, chữa bệnh đối với chức danh kỹ thuật y có phạm vi hành nghề xét nghiệm y.pdf"
   },
   {
     "id": 49,
@@ -731,8 +731,8 @@ const trainingPrograms = [
     "doc_status": "Có",
     "doc_source": "Không phải của BVBM ban hành",
     "review_note": null,
-    "document_url": null,
-    "local_file_path": null
+    "document_url": "documents/29. Thực hành khám bệnh, chữa bệnh đối với chức danh kỹ thuật y có phạm vi hành nghề phục hồi chức năng.pdf",
+    "local_file_path": "documents/29. Thực hành khám bệnh, chữa bệnh đối với chức danh kỹ thuật y có phạm vi hành nghề phục hồi chức năng.pdf"
   },
   {
     "id": 50,

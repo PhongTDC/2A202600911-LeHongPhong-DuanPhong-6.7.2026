@@ -557,6 +557,12 @@ function closeModal() {
     URL.revokeObjectURL(currentViewObjectUrl);
     currentViewObjectUrl = null;
   }
+  
+  // Clean up Object URL for the drive link button
+  if (modalDriveBtn.dataset.objectUrl) {
+    URL.revokeObjectURL(modalDriveBtn.dataset.objectUrl);
+    delete modalDriveBtn.dataset.objectUrl;
+  }
 }
 
 // ====================================================================
@@ -570,6 +576,16 @@ async function refreshLocalFileStatus() {
     if (fileRecord) {
       localFileName.innerText = fileRecord.name;
       localFileStatus.style.display = 'flex';
+      
+      // Point the 'Mở Drive Tài liệu' button to the uploaded local file
+      const fileUrl = URL.createObjectURL(fileRecord.data);
+      modalDriveBtn.href = fileUrl;
+      modalDriveBtn.style.display = 'inline-flex';
+      
+      if (modalDriveBtn.dataset.objectUrl) {
+        URL.revokeObjectURL(modalDriveBtn.dataset.objectUrl);
+      }
+      modalDriveBtn.dataset.objectUrl = fileUrl;
     } else {
       localFileStatus.style.display = 'none';
       if (localFileViewerContainer) {
@@ -579,6 +595,19 @@ async function refreshLocalFileStatus() {
       if (currentViewObjectUrl) {
         URL.revokeObjectURL(currentViewObjectUrl);
         currentViewObjectUrl = null;
+      }
+      
+      if (modalDriveBtn.dataset.objectUrl) {
+        URL.revokeObjectURL(modalDriveBtn.dataset.objectUrl);
+        delete modalDriveBtn.dataset.objectUrl;
+      }
+      
+      // Fallback to default document_url
+      if (selectedProgram.document_url) {
+        modalDriveBtn.href = selectedProgram.document_url;
+        modalDriveBtn.style.display = 'inline-flex';
+      } else {
+        modalDriveBtn.style.display = 'none';
       }
     }
     localFileInput.value = ''; // Reset input element
@@ -1120,57 +1149,176 @@ async function handleImportBackup(e) {
   
   syncImportStatus.style.display = 'block';
   syncImportStatus.className = 'sync-working-status';
-  syncImportStatus.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang nhập và đồng bộ dữ liệu...';
+  syncImportStatus.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang chuẩn bị tệp tin...';
   
-  const reader = new FileReader();
-  reader.onload = async function(evt) {
-    try {
-      const backupData = JSON.parse(evt.target.result);
-      if (!Array.isArray(backupData)) {
-        throw new Error("Định dạng tệp sao lưu không hợp lệ.");
-      }
+  try {
+    const totalSize = file.size;
+    const CHUNK_SIZE = 4 * 1024 * 1024; // 4MB chunks
+    let offset = 0;
+    let importedCount = 0;
+    
+    const decoder = new TextDecoder("utf-8", { ignoreBOM: true });
+    
+    // State variables
+    let buffer = "";
+    let inString = false;
+    let escape = false;
+    let braceDepth = 0;
+    let objectStartIdx = -1;
+    let scanIdx = 0;
+    
+    while (offset < totalSize) {
+      const chunk = file.slice(offset, offset + CHUNK_SIZE);
+      const arrayBuffer = await chunk.arrayBuffer();
+      // Decode chunk
+      const chunkText = decoder.decode(arrayBuffer, { stream: true });
+      buffer += chunkText;
       
-      let importedCount = 0;
-      for (const item of backupData) {
-        if (!item.programId || !item.name || !item.type || !item.base64) {
-          continue; // skip malformed records
+      // Parse objects in buffer
+      while (scanIdx < buffer.length) {
+        const char = buffer[scanIdx];
+        if (escape) {
+          escape = false;
+          scanIdx++;
+          continue;
         }
-        
-        const blob = base64ToBlob(item.base64, item.type);
-        // Add file metadata properties
-        blob.name = item.name;
-        blob.type = item.type;
-        
-        // Save to IndexedDB
-        await saveFileLocal(item.programId, blob);
-        
-        // Update in-memory trainingPrograms state
-        const idx = trainingPrograms.findIndex(p => p.id === parseInt(item.programId));
-        if (idx !== -1) {
-          trainingPrograms[idx].doc_status = 'Có';
+        if (char === '\\') {
+          escape = true;
+          scanIdx++;
+          continue;
         }
-        importedCount++;
+        if (char === '"') {
+          inString = !inString;
+          scanIdx++;
+          continue;
+        }
+        if (!inString) {
+          if (char === '{') {
+            if (braceDepth === 0) {
+              objectStartIdx = scanIdx;
+            }
+            braceDepth++;
+          } else if (char === '}') {
+            braceDepth--;
+            if (braceDepth === 0 && objectStartIdx !== -1) {
+              const objectStr = buffer.slice(objectStartIdx, scanIdx + 1);
+              try {
+                const item = JSON.parse(objectStr);
+                if (item.programId && item.name && item.type && item.base64) {
+                  const blob = base64ToBlob(item.base64, item.type);
+                  blob.name = item.name;
+                  blob.type = item.type;
+                  
+                  await saveFileLocal(item.programId, blob);
+                  
+                  const idx = trainingPrograms.findIndex(p => p.id === parseInt(item.programId));
+                  if (idx !== -1) {
+                    trainingPrograms[idx].doc_status = 'Có';
+                  }
+                  importedCount++;
+                }
+              } catch (err) {
+                console.error("Lỗi parse object:", err);
+              }
+              
+              // Slice buffer
+              buffer = buffer.slice(scanIdx + 1);
+              scanIdx = 0;
+              objectStartIdx = -1;
+              continue;
+            }
+          }
+        }
+        scanIdx++;
       }
       
-      // Update UI
-      updateStats();
-      applyFilters();
-      await refreshSyncInfo();
+      offset += CHUNK_SIZE;
       
-      syncImportStatus.className = 'sync-success-status';
-      syncImportStatus.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đồng bộ thành công! Đã nhập ${importedCount} tài liệu vào trình duyệt này.`;
+      // Update progress UI
+      const percent = Math.min(100, (offset / totalSize) * 100).toFixed(1);
+      syncImportStatus.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Đang nhập dữ liệu: ${percent}% (Đã nhập ${importedCount} tài liệu)...`;
       
-      // If we are currently looking at a program details modal, refresh it
-      if (selectedProgram) {
-        await refreshLocalFileStatus();
-      }
-    } catch (err) {
-      console.error("Lỗi nhập dữ liệu:", err);
-      syncImportStatus.className = 'sync-error-status';
-      syncImportStatus.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Nhập dữ liệu thất bại. Vui lòng đảm bảo tệp tin đúng định dạng `.bachmai`.';
+      // Yield to UI thread to keep the browser responsive
+      await new Promise(resolve => setTimeout(resolve, 0));
     }
-  };
-  reader.readAsText(file);
+    
+    // Final chunk decode (flush decoder)
+    const finalChunkText = decoder.decode(new Uint8Array(0), { stream: false });
+    if (finalChunkText) {
+      buffer += finalChunkText;
+      // Last pass just in case
+      while (scanIdx < buffer.length) {
+        const char = buffer[scanIdx];
+        if (escape) {
+          escape = false;
+          scanIdx++;
+          continue;
+        }
+        if (char === '\\') {
+          escape = true;
+          scanIdx++;
+          continue;
+        }
+        if (char === '"') {
+          inString = !inString;
+          scanIdx++;
+          continue;
+        }
+        if (!inString) {
+          if (char === '{') {
+            if (braceDepth === 0) {
+              objectStartIdx = scanIdx;
+            }
+            braceDepth++;
+          } else if (char === '}') {
+            braceDepth--;
+            if (braceDepth === 0 && objectStartIdx !== -1) {
+              const objectStr = buffer.slice(objectStartIdx, scanIdx + 1);
+              try {
+                const item = JSON.parse(objectStr);
+                if (item.programId && item.name && item.type && item.base64) {
+                  const blob = base64ToBlob(item.base64, item.type);
+                  blob.name = item.name;
+                  blob.type = item.type;
+                  
+                  await saveFileLocal(item.programId, blob);
+                  
+                  const idx = trainingPrograms.findIndex(p => p.id === parseInt(item.programId));
+                  if (idx !== -1) {
+                    trainingPrograms[idx].doc_status = 'Có';
+                  }
+                  importedCount++;
+                }
+              } catch (err) {
+                console.error("Lỗi parse object:", err);
+              }
+              buffer = buffer.slice(scanIdx + 1);
+              scanIdx = 0;
+              objectStartIdx = -1;
+              continue;
+            }
+          }
+        }
+        scanIdx++;
+      }
+    }
+    
+    // Update UI
+    updateStats();
+    applyFilters();
+    await refreshSyncInfo();
+    
+    syncImportStatus.className = 'sync-success-status';
+    syncImportStatus.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đồng bộ thành công! Đã nhập ${importedCount} tài liệu vào trình duyệt này.`;
+    
+    if (selectedProgram) {
+      await refreshLocalFileStatus();
+    }
+  } catch (err) {
+    console.error("Lỗi nhập dữ liệu:", err);
+    syncImportStatus.className = 'sync-error-status';
+    syncImportStatus.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Nhập dữ liệu thất bại. Chi tiết: ' + err.message;
+  }
 }
 
 async function handleImportJsonText() {
