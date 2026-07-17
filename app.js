@@ -1058,24 +1058,44 @@ async function exportDatabase() {
       return;
     }
     
-    const backupData = [];
-    for (const f of files) {
+    // Sử dụng mảng blobParts để tránh tạo một chuỗi JavaScript quá dài (RangeError: Invalid string length)
+    // khi xử lý dữ liệu lớn (392 MB). Trình duyệt sẽ trực tiếp ghép nối Blob mà không nạp toàn bộ vào String RAM.
+    const blobParts = [];
+    blobParts.push("[");
+    
+    let totalEstimatedSize = 0;
+    for (let i = 0; i < files.length; i++) {
+      const f = files[i];
       const base64Data = await blobToBase64(f.data);
-      backupData.push({
+      const item = {
         programId: f.programId,
         name: f.name,
         type: f.type,
         base64: base64Data
-      });
+      };
+      
+      const itemString = JSON.stringify(item);
+      totalEstimatedSize += itemString.length;
+      
+      blobParts.push(itemString);
+      if (i < files.length - 1) {
+        blobParts.push(",");
+      }
     }
+    blobParts.push("]");
     
-    const jsonString = JSON.stringify(backupData);
-    if (syncExportJsonText) {
-      syncExportJsonText.value = jsonString;
-    }
-    
-    const blob = new Blob([jsonString], { type: "application/json" });
+    const blob = new Blob(blobParts, { type: "application/json" });
     const url = URL.createObjectURL(blob);
+    
+    // Chỉ gán vào textarea hiển thị nếu dữ liệu nhỏ (dưới 5 MB) để tránh đơ DOM trình duyệt
+    if (syncExportJsonText) {
+      if (totalEstimatedSize < 5 * 1024 * 1024) {
+        syncExportJsonText.value = blobParts.join("");
+      } else {
+        const sizeMb = (blob.size / (1024 * 1024)).toFixed(2);
+        syncExportJsonText.value = `[Dữ liệu sao lưu quá lớn (${sizeMb} MB) để hiển thị dạng chữ tại đây. Vui lòng tải file trực tiếp bằng nút bấm phía trên]`;
+      }
+    }
     
     const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
     const a = document.createElement('a');
@@ -1087,7 +1107,7 @@ async function exportDatabase() {
     URL.revokeObjectURL(url);
   } catch (err) {
     console.error("Lỗi xuất database:", err);
-    alert("Có lỗi xảy ra trong quá trình xuất sao lưu.");
+    alert("Có lỗi xảy ra trong quá trình xuất sao lưu. Chi tiết: " + err.message);
   } finally {
     exportBackupBtn.disabled = false;
     exportBackupBtn.innerHTML = originalText;
